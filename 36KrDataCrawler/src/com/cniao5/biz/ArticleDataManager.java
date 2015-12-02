@@ -93,4 +93,62 @@ public class ArticleDataManager {
 	    articleBean.setAuthorBean(bean);
     	return articleBean;
     }
+    
+    /**
+     * 进行抓取文章详情
+     * @param document
+     * @return
+     */
+    public ArticleBean getArticleBean_CNK(Document document){
+    	ArticleBean bean=new ArticleBean();
+    	Element singleElement=document.select("article.single-post").first();
+    	String title=singleElement.select("h1.single-post__title").first().text();
+    	String datetime=singleElement.select("time.timeago").first().attr("datetime");
+    	String datetext=singleElement.select("time.timeago").first().text();
+    	Element head=singleElement.select("div.single-post-header__headline").first();
+    	String headImage= ImageUtils.getCutImageUrl(head.select("img").first().attr("src"));
+    	String context=singleElement.select("section.article").first().toString();
+    	bean.setTitle(title);
+    	bean.setDatetime(datetime);
+    	bean.setDatetext(datetext);
+    	bean.setHeadImage(headImage);
+    	bean.setContext(context);
+    	
+    	//开始抓取标签Tag数据
+        Elements tagsElements= singleElement.select("section.single-post-tags").first().select("span.tag-item");
+        List<TagBean> tagBeans=new ArrayList<TagBean>();
+    	for (Element element : tagsElements) {
+    		String href=element.select("a").first().attr("abs:href");
+    		String tagname=element.text();
+			TagBean tagBean=new TagBean();
+			tagBean.setHref(href);
+			tagBean.setTagname(tagname);
+			tagBeans.add(tagBean);
+		}
+    	bean.setTagBeans(tagBeans);
+    	//开始抓取作者信息
+    	AuthorBean authorBean=new AuthorBean();
+    	String result=HttpRequest.sendPost("http://36kr.com/asynces/posts/author_info", "url_code="+articleId);
+    	try {
+			JSONObject authorObject=new JSONObject(result);
+			String name=authorObject.getString("name");
+			String avatar=authorObject.getString("avatar");
+			String badge=authorObject.getString("role");
+			String description=authorObject.getString("tagline");
+			String href="http:"+authorObject.getString("more_articles");
+			String article_total=authorObject.getString("posts_count");
+			String read_number=authorObject.getString("views_count");
+			authorBean.setName(name);
+			authorBean.setAvatar(avatar);
+			authorBean.setBadge(badge);
+			authorBean.setDescription(description);
+			authorBean.setHref(href);
+			authorBean.setArticle_total(article_total);
+			authorBean.setRead_number(read_number);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+    	bean.setAuthorBean(authorBean);
+    	return bean;
+    }
 }

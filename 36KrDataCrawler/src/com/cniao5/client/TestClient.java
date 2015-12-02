@@ -35,7 +35,7 @@ public class TestClient {
 		 List<HomeNewsBean> homeNewsBeans=new HomeNewsDataManager().getHomeNewsBeans_CNK(document);
 		 gson=new Gson();
 		 System.out.println(gson.toJson(homeNewsBeans));
-		 System.out.println(new Gson().toJson(new ArticleDataManager(CTextUtils.getArticleId("http://36kr.com/p/5040442.html")).getArticleBean(Jsoup.connect("http://36kr.com/p/5040442.html").timeout(100000).get())));
+		 System.out.println(new Gson().toJson(new ArticleDataManager(CTextUtils.getArticleId("http://36kr.com/p/5040444.html")).getArticleBean_CNK(Jsoup.connect("http://36kr.com/p/5040444.html").timeout(100000).get())));
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
