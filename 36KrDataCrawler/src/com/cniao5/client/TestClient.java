@@ -25,17 +25,17 @@ import com.google.gson.Gson;
 public class TestClient {
  public static void main(String[] args) {
 	try {
-		 Document document = Jsoup.connect(Config.CRAWLER_URL).timeout(100000).get();
-		 List<AdHeadBean> adHeadBeans=new HeadDataManager().getHeadBeans_CNK(document);
+		 Document document = Jsoup.connect("http://36kr.com/product_notes").timeout(100000).get();
+//		 List<AdHeadBean> adHeadBeans=new HeadDataManager().getHeadBeans(document);
+//		 Gson gson=new Gson();
+//		 System.out.println(gson.toJson(adHeadBeans));
+//		 List<CategoriesBean> categoriesBeans=new CategoryDataManager().getCategoriesBeans(document);
+//		 gson=new Gson();
+//		 System.out.println(gson.toJson(categoriesBeans));
+		 List<HomeNewsBean> homeNewsBeans=new HomeNewsDataManager().getHomeNewsBeans(document);
 		 Gson gson=new Gson();
-		 System.out.println(gson.toJson(adHeadBeans));
-		 List<CategoriesBean> categoriesBeans=new CategoryDataManager().getCategoriesBeans_CNK(document);
-		 gson=new Gson();
-		 System.out.println(gson.toJson(categoriesBeans));
-		 List<HomeNewsBean> homeNewsBeans=new HomeNewsDataManager().getHomeNewsBeans_CNK(document);
-		 gson=new Gson();
 		 System.out.println(gson.toJson(homeNewsBeans));
-		 System.out.println(new Gson().toJson(new ArticleDataManager(CTextUtils.getArticleId("http://36kr.com/p/5040444.html")).getArticleBean_CNK(Jsoup.connect("http://36kr.com/p/5040444.html").timeout(100000).get())));
+		 //System.out.println(new Gson().toJson(new ArticleDataManager(CTextUtils.getArticleId("http://36kr.com/p/5040444.html")).getArticleBean(Jsoup.connect("http://36kr.com/p/5040444.html").timeout(100000).get())));
 	} catch (IOException e) {
 		e.printStackTrace();
 	}

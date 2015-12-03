@@ -53,7 +53,7 @@ public class HomeNewsDataManager {
 		  //查找只存在data-lazyload属性的a标签
 		  Element link = author_element.select("a").first();
 		  String author_href=Config.CRAWLER_URL+link.attr("href");
-		  String avatar=link.select("span.avatar").first().attr("data-lazyload");
+		  String avatar=ImageUtils.getCutImageUrl(link.select("span.avatar").first().attr("data-lazyload"));
 		  String name=link.text();
 		  //时间
 		  Element time_element=author_element.select("time.timeago").first();
