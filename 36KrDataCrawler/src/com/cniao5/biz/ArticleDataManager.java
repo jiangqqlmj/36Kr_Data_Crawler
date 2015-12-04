@@ -44,8 +44,13 @@ public class ArticleDataManager {
     	//single-post__title
     	String title=singleElement.select("h1.single-post__title").first().text();
     	//获取时间
-    	String datetime=singleElement.select("time.timeago").first().attr("datetime");
-    	String datetext=singleElement.select("time.timeago").first().text();
+    	String datetime="";
+    	String datetext="";
+    	if(singleElement.getElementsByClass("timeago").first().hasAttr("datetime")){
+    		datetime=singleElement.getElementsByClass("timeago").first().attr("datetime");
+    		datetext=singleElement.getElementsByClass("timeago").first().text();
+    	}
+    	
     	//获取头图片
     	String headImage=ImageUtils.getCutImageUrl(singleElement.select("div.single-post-header__headline").first().select("img[src]").first().attr("src"));
     	//获取文章内容
