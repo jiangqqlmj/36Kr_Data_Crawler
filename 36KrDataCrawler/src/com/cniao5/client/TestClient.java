@@ -34,12 +34,12 @@ public class TestClient {
 //		 List<CategoriesBean> categoriesBeans=new CategoryDataManager().getCategoriesBeans(document);
 //		 gson=new Gson();
 //		 System.out.println(gson.toJson(categoriesBeans));
-		 List<HomeNewsBean> homeNewsBeans=new HomeNewsDataManager().getHomeNewsBeans(document);
-		 Gson gson=new Gson();
-		 System.out.println(gson.toJson(homeNewsBeans));
-//		 String mURL="http://36kr.com/p/5040517.html";
-//	     System.out.println(new Gson().toJson(new ArticleDataManager(CTextUtils.getArticleId(mURL)).getArticleBean(Jsoup.connect(mURL).timeout(100000).get())));
-//	     System.out.println(new Gson().toJson(new RecentDataManager().getRecentBeans(document)));
+//		 List<HomeNewsBean> homeNewsBeans=new HomeNewsDataManager().getHomeNewsBeans(document);
+//		 Gson gson=new Gson();
+//		 System.out.println(gson.toJson(homeNewsBeans));
+		 String mURL="http://36kr.com/p/5040239.html";
+	     System.out.println(new Gson().toJson(new ArticleDataManager(CTextUtils.getArticleId(mURL)).getArticleBean(Jsoup.connect(mURL).timeout(100000).get())));
+	     //System.out.println(new Gson().toJson(new RecentDataManager().getRecentBeans(document)));
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
